@@ -19,7 +19,9 @@ class Basic:
     def __init__(self, train_set, exp_dict):
         # Load Transformer and config
         self.exp_dict = exp_dict
-        model_name = "bert-base-cased"
+        # model_name = "bert-base-cased"
+        model_name = "bert-base-multilingual-cased"
+        # model_name = "google/mt5-base"
         config = AutoConfig.from_pretrained(model_name)
         self.transformer = AutoModel.from_pretrained(model_name)
 

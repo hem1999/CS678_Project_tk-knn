@@ -26,13 +26,15 @@ def convert_to_dataset_hwu(file_path, label_map, sep='\t'):
 
     dataset = []
     for idx, row in dataframe.iterrows():
-        example = {}
-
-        example["text"] = row[0]
-        example["label"] = label_map[row[1].strip()]
-
-        dataset.append(example)
-
+        try:
+            example = {}
+    
+            example["text"] = row[0]
+            example["label"] = label_map[row[1].strip()]
+    
+            dataset.append(example)
+        except:
+            continue
     return dataset
 
 def load_banking_dataset(split):
@@ -85,7 +87,8 @@ class SemiLoader(Dataset):
         else:
             label_masks = np.ones(len(dataset), dtype=label_type)
 
-        model_name = "bert-base-cased"
+        # model_name = "bert-base-cased"
+        model_name = "bert-base-multilingual-cased"
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         for idx, example in enumerate(tqdm(dataset, desc=f"Tokenizing {dataset_name}  dataset")):
             text = example["text"]
